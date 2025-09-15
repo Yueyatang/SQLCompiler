@@ -1,0 +1,38 @@
+# 小型数据库系统演示命令
+# 在SQL>提示符下依次输入以下命令：
+
+# 1. 创建用户表
+CREATE TABLE users (id INT, name VARCHAR(50), age INT)
+
+# 2. 插入测试数据
+INSERT INTO users VALUES (1, 'Alice', 25)
+INSERT INTO users VALUES (2, 'Bob', 30)
+INSERT INTO users VALUES (3, 'Charlie', 22)
+INSERT INTO users VALUES (4, 'Diana', 28)
+
+# 3. 查询所有用户
+SELECT * FROM users
+
+# 4. 查询年龄大于25的用户
+SELECT name, age FROM users WHERE age > 25
+
+# 5. 查询特定用户
+SELECT * FROM users WHERE name = 'Alice'
+
+# 6. 更新Alice的年龄
+UPDATE users SET age = 26 WHERE name = 'Alice'
+
+# 7. 验证更新结果
+SELECT * FROM users WHERE name = 'Alice'
+
+# 8. 删除年龄小于23的用户
+DELETE FROM users WHERE age < 23
+
+# 9. 查看最终结果
+SELECT * FROM users
+
+# 10. 查看帮助
+help
+
+# 11. 退出程序
+exit

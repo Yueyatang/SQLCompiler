@@ -1,0 +1,75 @@
+# 权限系统验证SQL语句集合
+
+## 启动系统
+cd "C:\Users\19655\Desktop\SQLCompiler2.0\SQLCompiler2.0\demo"
+python main.py
+
+## 验证序列 1: 基本认证功能
+LOGIN admin 'admin123'
+SHOW USERS
+LOGOUT
+
+## 验证序列 2: 数据操作功能
+LOGIN admin 'admin123'
+CREATE TABLE employees (id INT, name VARCHAR(50), salary FLOAT)
+INSERT INTO employees VALUES (1, 'Alice', 50000.0)
+INSERT INTO employees VALUES (2, 'Bob', 60000.0)
+SELECT * FROM employees
+UPDATE employees SET salary = 55000.0 WHERE name = 'Alice'
+SELECT * FROM employees
+DELETE FROM employees WHERE salary < 55000
+SELECT * FROM employees
+LOGOUT
+
+## 验证序列 3: 权限控制功能
+SELECT * FROM employees
+LOGIN admin 'admin123'
+SELECT * FROM employees
+LOGOUT
+
+## 验证序列 4: 多表管理功能
+LOGIN admin 'admin123'
+CREATE TABLE departments (id INT, name VARCHAR(50))
+CREATE TABLE projects (id INT, name VARCHAR(100), budget FLOAT)
+INSERT INTO departments VALUES (1, 'Engineering')
+INSERT INTO departments VALUES (2, 'Marketing')
+INSERT INTO projects VALUES (1, 'Website Redesign', 50000.0)
+SELECT * FROM departments
+SELECT * FROM projects
+DROP TABLE projects
+DROP TABLE departments
+DROP TABLE employees
+LOGOUT
+
+## 验证序列 5: 快速验证（推荐）
+LOGIN admin 'admin123'
+CREATE TABLE test (id INT, name VARCHAR(50))
+INSERT INTO test VALUES (1, 'test')
+SELECT * FROM test
+LOGOUT
+SELECT * FROM test
+LOGIN admin 'admin123'
+SELECT * FROM test
+DROP TABLE test
+LOGOUT
+
+## 预期结果说明
+
+### 成功结果
+- 登录: "登录成功! 欢迎, admin"
+- 创建表: "表 'table_name' 创建成功"
+- 插入: "成功插入1条记录到表 'table_name'"
+- 查询: 显示实际数据
+- 更新: "成功更新 X 条记录"
+- 删除: "成功删除 X 条记录"
+- 登出: "已成功登出"
+
+### 权限控制结果
+- 未登录操作: "错误: 请先登录 (使用 LOGIN username password)"
+- 权限不足: "错误: 权限不足，无法执行此操作"
+
+## 使用说明
+1. 复制上述SQL语句
+2. 在数据库系统提示符下逐行执行
+3. 观察结果是否符合预期
+4. 验证权限控制是否正常工作
